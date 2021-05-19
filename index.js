@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const mongoose = requiere("mongoose");
+mongoose.connect("mongodb+srv://electivaing:<Osama12345>@cluster0.of2gq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 //Settings
 app.set("port", 5050);
