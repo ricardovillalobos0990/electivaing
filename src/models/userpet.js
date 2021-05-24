@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
 
 const userPetSchema = mongoose.Schema({
-  _id: mongoose.SchemaType.ObjetctId,
+  _id: mongoose.SchemaTypes.ObjectId,
+  cc: Number,
   name: String,
   lastName: String,
   address: String,
   phone: Number,
   email: String,
   pet: String,
-  age_pet: Number,
+  agepet: Number,
   status: Boolean,
 });
 
-module.exports = mongoose.model("user_pet", userPetSchema);
+module.exports = mongoose.model("userpet", userPetSchema);

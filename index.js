@@ -13,13 +13,15 @@ app.set("json spaces", 2);
 
 //Middleware
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(express.json());
 
 //req = request = solicitud
 //res = response = respuesta
 app.use("/admin", require("./src/routes/admin"));
-app.use("/user_pet", require("./src/routes/user_pet"));
+app.use("/userpet", require("./src/routes/userpet"));
 app.use("/walker", require("./src/routes/walker"));
 
 //Start WEB Server

@@ -6,14 +6,14 @@ const router = Router();
 const mongoose = require("mongoose");
 const {
     restart
-} = require("nodemon")
+} = require("nodemon");
 
-const Admin = require("../models/admin");
+const userPet = require("../models/userpet");
 
 router.get("/", (req, res) => {
-    Admin.find()
+    userPet.find()
         .exec()
-        .then((admin) => res.status(200).json(admin))
+        .then((userpet) => res.status(200).json(userpet))
         .catch((error) => res.status(500).json({
             error
         }));
@@ -21,17 +21,17 @@ router.get("/", (req, res) => {
 
 router.get("/:cc", (req, res) => {
     const cc = req.params.cc;
-    Admin.findOne({
+    userPet.findOne({
             cc: cc
         })
         .exec()
-        .then((admin) => {
-            if (admin === null) {
+        .then((userpet) => {
+            if (userpet === null) {
                 res.status(404).json({
-                    message: "Admin not found",
+                    message: "USER PET not found",
                 });
             } else {
-                res.status(200).json(admin);
+                res.status(200).json(userpet);
             }
         })
         .catch((error) => res.status(500).json({
@@ -40,21 +40,25 @@ router.get("/:cc", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    const admin = new Admin({
+    const userpet = new userPet({
         _id: new mongoose.Types.ObjectId(),
         cc: req.body.cc,
         name: req.body.name,
         lastName: req.body.lastName,
+        address: req.body.address,
         phone: req.body.phone,
         email: req.body.email,
+        pet: req.body.pet,
+        agepet: req.body.agepet,
+        status: req.body.status,
     });
-    admin
+    userpet
         .save()
         .then((result) =>
             res.status(201).json({
                 state: "OK",
-                message: "Admin as Created",
-                createdAdmin: admin,
+                message: "User Pet as Created",
+                createUserPet: userpet,
             })
         )
         .catch((error) => res.status(500).json({
@@ -65,14 +69,18 @@ router.post("/", (req, res) => {
 router.patch("/:cc", (req, res) => {
     const cc = req.params.cc;
 
-    Admin.updateOne({
+    userPet.updateOne({
             cc: cc
         }, {
             $set: {
                 name: req.body.name,
                 lastName: req.body.lastName,
+                address: req.body.address,
                 phone: req.body.phone,
                 email: req.body.email,
+                pet: req.body.pet,
+                agepet: req.body.agepet,
+                status: req.body.status,
             },
         })
         .exec()
@@ -86,7 +94,7 @@ router.patch("/:cc", (req, res) => {
 
 router.delete("/:cc", (req, res) => {
     const cc = req.params.cc;
-    Admin.remove({
+    userPet.remove({
             cc: cc
         })
         .exec()
