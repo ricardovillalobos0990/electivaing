@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const mongoose = requiere("mongoose");
-mongoose.connect("mongodb+srv://electivaing:<Osama12345>@cluster0.of2gq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+const mongoose = require("mongoose");
+mongoose.connect("mongodb+srv://electivaing:Osama12345@cluster0.of2gq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //Settings
 app.set("port", 5050);
@@ -17,20 +18,11 @@ app.use(express.json());
 
 //req = request = solicitud
 //res = response = respuesta
-app.use("/people", require("./routes/people"));
+app.use("/admin", require("./src/routes/admin"));
+app.use("/user_pet", require("./src/routes/user_pet"));
+app.use("/walker", require("./src/routes/walker"));
 
 //Start WEB Server
 app.listen(app.get("port"), () => {
   console.log(`Servidor corriendo en el puerto ${app.get("port")}`);
 });
-
-//   {
-//     firstname: "Ricardo",
-//     lastname: "Villalobos",
-//     age: 30,
-//   },
-//   {
-//     firstname: "Andres",
-//     lastname: "Marulanda",
-//     age: 31,
-//   },
