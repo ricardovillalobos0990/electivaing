@@ -47,6 +47,7 @@ router.post("/", (req, res) => {
     lastName: req.body.lastName,
     phone: req.body.phone,
     email: req.body.email,
+    status: req.body.status,
   });
   walker
     .save()
@@ -73,6 +74,7 @@ router.patch("/:cc", (req, res) => {
         lastName: req.body.lastName,
         phone: req.body.phone,
         email: req.body.email,
+        status: req.body.status,
       },
     })
     .exec()

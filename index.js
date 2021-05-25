@@ -23,6 +23,8 @@ app.use(express.json());
 app.use("/admin", require("./src/routes/admin"));
 app.use("/userpet", require("./src/routes/userpet"));
 app.use("/walker", require("./src/routes/walker"));
+app.use("/services", require("./src/routes/services"));
+
 
 //Start WEB Server
 app.listen(app.get("port"), () => {

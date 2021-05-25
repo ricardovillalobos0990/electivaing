@@ -8,9 +8,10 @@ const userPetSchema = mongoose.Schema({
   address: String,
   phone: Number,
   email: String,
-  pet: String,
+  namePet: String,
+  race: String,
   agepet: Number,
-  status: Boolean,
+  status: String,
 });
 
 module.exports = mongoose.model("userpet", userPetSchema);
