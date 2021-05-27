@@ -6,32 +6,40 @@ const router = Router();
 const mongoose = require("mongoose");
 const {
 	restart
-} = require("nodemon")
+} = require("nodemon");
 
-const Admin = require("../models/admin");
+const User = require("../models/User");
 
 router.get("/", (req, res) => {
-	Admin.find()
+	User.find()
 		.exec()
-		.then((admin) => res.status(200).json(admin))
+		.then((user) => res.status(200).json(user))
 		.catch((error) => res.status(500).json({
 			error
 		}));
 });
 
+router.get("/todos", (req, res) => {
+	User.find({}, (err, result) => {
+		res.status(200).send(result)
+	});
+	5
+});
+
+
 router.get("/:cc", (req, res) => {
 	const cc = req.params.cc;
-	Admin.findOne({
+	User.findOne({
 			cc: cc
 		})
 		.exec()
-		.then((admin) => {
-			if (admin === null) {
+		.then((user) => {
+			if (user === null) {
 				res.status(404).json({
-					message: "Admin not found",
+					message: "USER not found",
 				});
 			} else {
-				res.status(200).json(admin);
+				res.status(200).json(user);
 			}
 		})
 		.catch((error) => res.status(500).json({
@@ -40,21 +48,22 @@ router.get("/:cc", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-	const admin = new Admin({
+	const user = new user({
 		_id: new mongoose.Types.ObjectId(),
 		cc: req.body.cc,
 		name: req.body.name,
 		lastName: req.body.lastName,
+		address: req.body.address,
 		phone: req.body.phone,
 		email: req.body.email,
 	});
-	admin
+	user
 		.save()
 		.then((result) =>
 			res.status(201).json({
 				state: "OK",
-				message: "Admin as Created",
-				createdAdmin: admin,
+				message: "User as Created",
+				createUser: user,
 			})
 		)
 		.catch((error) => res.status(500).json({
@@ -65,14 +74,19 @@ router.post("/", (req, res) => {
 router.patch("/:cc", (req, res) => {
 	const cc = req.params.cc;
 
-	Admin.updateOne({
+	User.updateOne({
 			cc: cc
 		}, {
 			$set: {
 				name: req.body.name,
 				lastName: req.body.lastName,
+				address: req.body.address,
 				phone: req.body.phone,
 				email: req.body.email,
+				namePet: req.body.namePet,
+				race: req.body.race,
+				agepet: req.body.agepet,
+				status: req.body.status,
 			},
 		})
 		.exec()
@@ -86,7 +100,7 @@ router.patch("/:cc", (req, res) => {
 
 router.delete("/:cc", (req, res) => {
 	const cc = req.params.cc;
-	Admin.remove({
+	User.remove({
 			cc: cc
 		})
 		.exec()

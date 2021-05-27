@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const userPetSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   _id: mongoose.SchemaTypes.ObjectId,
   cc: Number,
   name: String,
@@ -8,10 +9,10 @@ const userPetSchema = mongoose.Schema({
   address: String,
   phone: Number,
   email: String,
-  namePet: String,
-  race: String,
-  agepet: Number,
-  status: String,
+  pet: {
+    type: Schema.ObjectId,
+    ref: "Pet"
+  }
 });
 
-module.exports = mongoose.model("userpet", userPetSchema);
+module.exports = mongoose.model("User", userSchema);

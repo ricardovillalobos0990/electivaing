@@ -8,7 +8,7 @@ const {
 	restart
 } = require("nodemon");
 
-const Services = require("../models/services");
+const Services = require("../models/Services");
 
 router.get("/", (req, res) => {
 	Services.find()

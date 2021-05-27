@@ -1,11 +1,13 @@
-const express = require("express");
-const app = express();
-const morgan = require("morgan");
 const mongoose = require("mongoose");
+const express = require("express");
+const morgan = require("morgan");
+
 mongoose.connect("mongodb+srv://electivaing:Osama12345@cluster0.of2gq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+const app = express();
 
 //Settings
 app.set("port", 5050);
@@ -20,11 +22,10 @@ app.use(express.json());
 
 //req = request = solicitud
 //res = response = respuesta
-app.use("/admin", require("./src/routes/admin"));
-app.use("/userpet", require("./src/routes/userpet"));
-app.use("/walker", require("./src/routes/walker"));
-app.use("/services", require("./src/routes/services"));
-
+app.use("/pet", require("./src/routes/Pet"));
+app.use("/user", require("./src/routes/User"));
+app.use("/walker", require("./src/routes/Walker"));
+app.use("/services", require("./src/routes/Services"));
 
 //Start WEB Server
 app.listen(app.get("port"), () => {

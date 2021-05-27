@@ -8,7 +8,7 @@ const {
   restart
 } = require("nodemon");
 
-const Walker = require("../models/walker");
+const Walker = require("../models/Walker");
 
 router.get("/", (req, res) => {
   Walker.find()

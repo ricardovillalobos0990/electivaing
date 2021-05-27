@@ -8,30 +8,30 @@ const {
 	restart
 } = require("nodemon");
 
-const userPet = require("../models/userpet");
+const Mascotas = require("../models/Pet")
 
 router.get("/", (req, res) => {
-	userPet.find()
+	Mascotas.find()
 		.exec()
-		.then((userpet) => res.status(200).json(userpet))
+		.then((pet) => res.status(200).json(pet))
 		.catch((error) => res.status(500).json({
 			error
 		}));
 });
 
-router.get("/:cc", (req, res) => {
-	const cc = req.params.cc;
-	userPet.findOne({
-			cc: cc
+router.get("/:carnet", (req, res) => {
+	const carnet = req.params.carnet;
+	Mascotas.findOne({
+			carnet: carnet
 		})
 		.exec()
-		.then((userpet) => {
-			if (userpet === null) {
+		.then((pet) => {
+			if (pet === null) {
 				res.status(404).json({
-					message: "USER PET not found",
+					message: "Pet not found",
 				});
 			} else {
-				res.status(200).json(userpet);
+				res.status(200).json(pet);
 			}
 		})
 		.catch((error) => res.status(500).json({
@@ -40,26 +40,21 @@ router.get("/:cc", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-	const userpet = new userPet({
+	const pet = new Mascotas({
 		_id: new mongoose.Types.ObjectId(),
-		cc: req.body.cc,
-		name: req.body.name,
-		lastName: req.body.lastName,
-		address: req.body.address,
-		phone: req.body.phone,
-		email: req.body.email,
+		carnet: req.body.carnet,
 		namePet: req.body.namePet,
 		race: req.body.race,
 		agepet: req.body.agepet,
 		status: req.body.status,
 	});
-	userpet
+	pet
 		.save()
 		.then((result) =>
 			res.status(201).json({
 				state: "OK",
-				message: "User Pet as Created",
-				createUserPet: userpet,
+				message: "Pet as Created",
+				createPet: pet,
 			})
 		)
 		.catch((error) => res.status(500).json({
@@ -67,18 +62,13 @@ router.post("/", (req, res) => {
 		}));
 });
 
-router.patch("/:cc", (req, res) => {
-	const cc = req.params.cc;
+router.patch("/:carnet", (req, res) => {
+	const carnet = req.params.carnet;
 
-	userPet.updateOne({
-			cc: cc
+	Mascotas.updateOne({
+			carnet: carnet
 		}, {
 			$set: {
-				name: req.body.name,
-				lastName: req.body.lastName,
-				address: req.body.address,
-				phone: req.body.phone,
-				email: req.body.email,
 				namePet: req.body.namePet,
 				race: req.body.race,
 				agepet: req.body.agepet,
@@ -94,10 +84,10 @@ router.patch("/:cc", (req, res) => {
 		}));
 })
 
-router.delete("/:cc", (req, res) => {
-	const cc = req.params.cc;
-	userPet.remove({
-			cc: cc
+router.delete("/:carnet", (req, res) => {
+	const carnet = req.params.carnet;
+	Mascotas.remove({
+			carnet: carnet
 		})
 		.exec()
 		.then((result) => res.status(200).json(result))

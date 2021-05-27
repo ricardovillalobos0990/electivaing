@@ -10,4 +10,4 @@ const walkerSchema = mongoose.Schema({
   status: String,
 });
 
-module.exports = mongoose.model("walker", walkerSchema);
+module.exports = mongoose.model("Walker", walkerSchema);
