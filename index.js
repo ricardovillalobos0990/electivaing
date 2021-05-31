@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
 const express = require("express");
 const morgan = require("morgan");
+const mongoose = require("mongoose");
 
 mongoose.connect("mongodb+srv://electivaing:Osama12345@cluster0.of2gq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
   useNewUrlParser: true,
@@ -23,9 +23,11 @@ app.use(express.json());
 //req = request = solicitud
 //res = response = respuesta
 app.use("/pet", require("./src/routes/Pet"));
-app.use("/user", require("./src/routes/User"));
+app.use("/usuario", require("./src/routes/User"));
 app.use("/walker", require("./src/routes/Walker"));
 app.use("/services", require("./src/routes/Services"));
+app.use("/mascot", require("./src/routes/mascot"));
+
 
 //Start WEB Server
 app.listen(app.get("port"), () => {

@@ -8,12 +8,12 @@ const {
 	restart
 } = require("nodemon");
 
-const Pet = require("../models/Pet")
+const Mascot = require("../models/mascot")
 
 router.get("/", (req, res) => {
-	Pet.find()
+	Mascot.find()
 		.exec()
-		.then((pet) => res.status(200).json(pet))
+		.then((mascot) => res.status(200).json(mascot))
 		.catch((error) => res.status(500).json({
 			error
 		}));
@@ -21,17 +21,17 @@ router.get("/", (req, res) => {
 
 router.get("/:carnet", (req, res) => {
 	const carnet = req.params.carnet;
-	Pet.findOne({
+	Mascot.findOne({
 			carnet: carnet
 		})
 		.exec()
-		.then((pet) => {
-			if (pet === null) {
+		.then((mascot) => {
+			if (mascot === null) {
 				res.status(404).json({
-					message: "Pet not found",
+					message: "Mascot not found",
 				});
 			} else {
-				res.status(200).json(pet);
+				res.status(200).json(mascot);
 			}
 		})
 		.catch((error) => res.status(500).json({
@@ -40,21 +40,22 @@ router.get("/:carnet", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-	const pet = new Pet({
+	const mascot = new Mascot({
 		_id: new mongoose.Types.ObjectId(),
+		
 		carnet: req.body.carnet,
-		namePet: req.body.namePet,
+		nameMascot: req.body.nameMascot,
 		race: req.body.race,
-		agepet: req.body.agepet,
+		ageMascot: req.body.ageMascot,
 		status: req.body.status,
 	});
-	pet
+	mascot
 		.save()
 		.then((result) =>
 			res.status(201).json({
 				state: "OK",
-				message: "Pet as Created",
-				createPet: pet,
+				message: "Mascot as Created",
+				createMascot: mascot,
 			})
 		)
 		.catch((error) => res.status(500).json({
@@ -65,13 +66,13 @@ router.post("/", (req, res) => {
 router.patch("/:carnet", (req, res) => {
 	const carnet = req.params.carnet;
 
-	Pet.updateOne({
+	Mascot.updateOne({
 			carnet: carnet
 		}, {
 			$set: {
-				namePet: req.body.namePet,
+				nameMascot: req.body.nameMascot,
 				race: req.body.race,
-				agepet: req.body.agepet,
+				ageMascot: req.body.ageMascot,
 				status: req.body.status,
 			},
 		})
@@ -86,7 +87,7 @@ router.patch("/:carnet", (req, res) => {
 
 router.delete("/:carnet", (req, res) => {
 	const carnet = req.params.carnet;
-	Pet.remove({
+	Mascot.remove({
 			carnet: carnet
 		})
 		.exec()
@@ -95,5 +96,6 @@ router.delete("/:carnet", (req, res) => {
 			error
 		}))
 })
+
 
 module.exports = router;

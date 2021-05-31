@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+//const User = mongoose.model("User");
 
 const petSchema = mongoose.Schema({
   _id: mongoose.SchemaTypes.ObjectId,
