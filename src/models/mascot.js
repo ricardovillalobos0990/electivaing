@@ -5,14 +5,10 @@ const User = mongoose.model("User");
 const mascotSchema = mongoose.Schema({
   _id: mongoose.SchemaTypes.ObjectId,
   carnet: Number,
-  nameMascot: String,
+  namePet: String,
+  agePet: Number,
   race: String,
-  ageMascot: Number,
-  status: String,
-  user: {
-    type: Schema.ObjectId,
-    ref: "User"
-  }
-})
+  user: { type: Schema.ObjectId, ref: "User" },
+});
 
-module.exports = mongoose.model("mascot", mascotSchema);
+module.exports = mongoose.model("Mascot", mascotSchema);

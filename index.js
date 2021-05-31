@@ -22,11 +22,11 @@ app.use(express.json());
 
 //req = request = solicitud
 //res = response = respuesta
-app.use("/pet", require("./src/routes/Pet"));
-app.use("/usuario", require("./src/routes/User"));
+app.use("/user", require("./src/routes/User"));
 app.use("/walker", require("./src/routes/Walker"));
+app.use("/mascot", require("./src/routes/Mascot"));
 app.use("/services", require("./src/routes/Services"));
-app.use("/mascot", require("./src/routes/mascot"));
+
 
 
 //Start WEB Server

@@ -7,7 +7,7 @@ const walkerSchema = mongoose.Schema({
   lastName: String,
   phone: Number,
   email: String,
-  status: String,
+  status: Boolean,
 });
 
 module.exports = mongoose.model("Walker", walkerSchema);
